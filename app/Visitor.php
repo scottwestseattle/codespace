@@ -45,14 +45,15 @@ class Visitor extends Model
             $visitor->country = $ipInfo['country'];
             $visitor->city = $ipInfo['city'];
         }
-//dd($visitor);
+        
+        //dd($visitor);
 		try
 		{
 			$visitor->save();
 		}
 		catch (\Exception $e)
 		{
-//dd($e);
+            //dd($e);
 			Event::logException(LOG_MODEL_VISITORS, LOG_ACTION_ADD, 'Error Adding Visitor', null, $e->getMessage());
 			throw $e;
 		}

@@ -199,15 +199,19 @@ class Controller extends BaseController
 	protected function saveVisitor($model, $page, $record_id = null)
 	{
 		$spy = session('spy', null);
-		if (isset($spy))
-			return; // spy mode is on, don't count views
 
-		if (Auth::check())
-			return; // user logged in, don't save visitor
+		if (false) // so we can turn off the filters for testing
+		{
+	    if (isset($spy))
+            return; // spy mode is on, don't count views
 
-		if (User::isAdmin())
-			return; // admin user, don't count views
+            if (Auth::check())
+                return; // user logged in, don't save visitor
 
+            if (User::isAdmin())
+                return; // admin user, don't count views
+        }
+        
 		Visitor::add($this->getDomainName(), Tools::getIp(), $model, $page, $record_id);
 	}
 
